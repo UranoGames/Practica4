@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="manifest" href="manifest.json">
+    <link rel="shortcut icon" type="image/ico" href="icon.ico">
+    <title>Selecciona un personaje</title>
+
+  </head>
+  <body>
+    <h1 class="text-primary">Selecciona un personaje:</h1>
+
+    <select class="form-select" id="categoria">
+      <option value="COD">Selecciona una personaje</option>
+      <option value="LeonKennedy">Leon Kennedy</option>
+      <option value="JillValentine">Jill Valentine</option>
+      <option value="ChrisRedfield">Chris Redfield</option>
+      <option value="AlbertWesker">Albert Wesker</option>
+      <option value="AdaWong">Ada Wong</option>
+      <option value="ClaireRedfield">Claire Redfield</option>
+    </select>
+
+    <select class="form-select" id="select-personajes" disabled>
+      <option value="AlexMason">Alex Mason</option>
+      <option value="DavidMason">David Mason</option>
+      <option value="Ghost">Ghost</option>
+      <option value="JhonPrice">Jhon Price</option>
+    </select>
+    <div id="contenedor-imagen"></div>
+    <script>
+      const personajes = {
+        LeonKennedy: {
+          nombre: ["LeonKennedyR1","LeonKennedyR2","LeonKennedyR3"],
+        },
+        LeonKennedyR1:{
+          imagen: ['Imagenes/LeonKennedy1.jpg'],
+          descripcion: 'Leon Kennedy militar, con gran vision en el campo de batalla, manejo de armas, combate cuerpo a cuerpo'
+        },
+        LeonKennedyR2:{
+          imagen: ['Imagenes/LeonKennedy2.jpg'],
+          descripcion: 'Leon Kennedy con smoking y escopeta'
+        },
+        LeonKennedyR3:{
+          imagen: ['Imagenes/LeonKennedy3.jpg'],
+          descripcion: 'Leon Kennedy con chaqueta de cuero'
+        },
+        JillValentine: {
+          nombre: ["JillValentineR1","JillValentineR2","JillValentineR3"],
+        },
+        JillValentineR1:{
+          imagen: ['Imagenes/Jill1.jpeg'],
+          descripcion: 'Jill Valentine con boina'
+        },
+        JillValentineR2:{
+          imagen: ['Imagenes/Jill2.jpeg'],
+          descripcion: 'Jill Valentine con traje gotico'
+        },
+        JillValentineR3:{
+          imagen: ['Imagenes/Jill3.jpg'],
+          descripcion: 'Jill Valentine con traje de policia'
+        },
+        ChrisRedfield: {
+          nombre: ["ChrisRedfieldR1","ChrisRedfieldR2","ChrisRedfieldR3"],
+        },
+        ChrisRedfieldR1:{
+          imagen: ['Imagenes/Chris1.png'],
+          descripcion: 'Chris Redfield con ametralladora'
+        },
+        ChrisRedfieldR2:{
+          imagen: ['Imagenes/Chris2.png'],
+          descripcion: 'Chris Redfield vestido como Yamazaki'
+        },
+        ChrisRedfieldR3:{
+          imagen: ['Imagenes/Chris3.png'],
+          descripcion: 'Chris Redfield camuflajeado'
+        },
+        AlbertWesker: {
+          nombre: ["AlbertWeskerR1","AlbertWeskerR2","AlbertWeskerR3"],
+        },
+        AlbertWeskerR1:{
+          imagen: ['Imagenes/Albert1.jpeg'],
+          descripcion: 'Albert Wesker con chaqueta'
+        },
+        AlbertWeskerR2:{
+          imagen: ['Imagenes/Albert2.png'],
+          descripcion: 'Skin de Albert Wesker'
+        },
+        AlbertWeskerR3:{
+          imagen: ['Imagenes/Albert3.png'],
+          descripcion: 'Albert Wesker de azul'
+        },
+        AdaWong: {
+          nombre: ["AdaWongR1","AdaWongR2","AdaWongR3"],
+        },
+        AdaWongR1:{
+          imagen: ['Imagenes/Ada1.jpeg'],
+          descripcion: 'Ada Wong con vestido bien bellaquita'
+        },
+        AdaWongR2:{
+          imagen: ['Imagenes/Ada2.png'],
+          descripcion: 'Ada Wong con ballesta'
+        },
+        AdaWongR3:{
+          imagen: ['Imagenes/Ada3.jpeg'],
+          descripcion: 'Ada Wong formalmente'
+        },
+        ClaireRedfield: {
+          nombre: ["ClaireRedfieldR1","ClaireRedfieldR2","ClaireRedfieldR3"],
+        },
+        ClaireRedfieldR1:{
+          imagen: ['Imagenes/Claire1.jpeg'],
+          descripcion: 'Claire Redfield con jeans'
+        },
+        ClaireRedfieldR2:{
+          imagen: ['Imagenes/Claire2.jpeg'],
+          descripcion: 'ClaireRedfield con cabello suelto'
+        },
+        ClaireRedfieldR3:{
+          imagen: ['Imagenes/Claire3.jpeg'],
+          descripcion: 'Claire Redfield con armas'
+        }
+      };
+      const categoriaSelect = document.getElementById("categoria");
+      const selectPersonajes = document.getElementById('select-personajes');
+      const contenedorImagen = document.getElementById('contenedor-imagen');
+
+      categoriaSelect.addEventListener("change", () => {
+      selectPersonajes.innerHTML = "";
+      selectPersonajes.disabled = false;
+      const opciones = personajes[categoriaSelect.value].nombre;
+      for (const opcion of opciones) {
+        const option = document.createElement("option");
+        option.value = opcion;
+        option.textContent = opcion;
+        selectPersonajes.appendChild(option);
+      }
+    });
+
+      selectPersonajes.addEventListener('change', function() {
+        const nombrePersonaje = selectPersonajes.value;
+        const imagenSrc = personajes[nombrePersonaje].imagen;
+        const nombrePersonajeElement = document.createElement('h2');
+        nombrePersonajeElement.textContent = personajes[nombrePersonaje].value;
+        const imagenElement = document.createElement('img');
+        imagenElement.src = imagenSrc;
+        imagenElement.alt = `Imagen de ${personajes[nombrePersonaje].nombre}`;
+        imagenElement.style.width = '300px';
+        const descripcionPersonajeElement = document.createElement('p');
+        descripcionPersonajeElement.textContent = personajes[nombrePersonaje].descripcion;
+        contenedorImagen.innerHTML = '';
+        contenedorImagen.appendChild(nombrePersonajeElement);
+        contenedorImagen.appendChild(imagenElement);
+        //contenedorImagen.appendChild(descripcionFrutaElement);
+        imagenElement.addEventListener('click', function() {
+          window.location.href = `personajes.html?personaje=${nombrePersonaje}&imagen=${imagenSrc}&descripcion=${personajes[nombrePersonaje].descripcion}`;
+        });
+      });
+    </script>
+     <script src="/js/app.js"></script>
+     
+  </body>
+</html>
